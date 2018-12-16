@@ -1,1 +1,1 @@
-var str = 'hello,我是master';
+var str = 'hello,我是branch1';
