@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     .active{
+         background:blueviolet;
+     }
+     .noActive{
+         
+        background:greenyellow;
+     }
+    
+    
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" v-bind:style="'background:rgb(250,250,20,'+(alpha/100)+')'">
+        <!-- 控制body背景颜色 -->
+        <input type="range" v-model="alpha">
+
+
+        <!-- 提供模版 -->
+        <!-- 插值表达式  {{}}  单项绑定 -->
+        <h1>{{title}}</h1>
+        <!-- v-model 指令 双向绑定 既可以获取变量  也可以修改变量 -->
+        <input v-model="title" />
+    
+        <!-- v-for指令 用于循环创建模版 -->
+        
+    <ul>
+       <li v-for="(item,index) in arr">
+           
+           <span>{{item.user}}</span>
+           <span>{{item.age}}</span>
+          <button v-on:click="deleteUser(item,index)">删除</button>
+           
+           <ul>
+                <li v-for="sonInformation in item.son">
+                  <span>{{sonInformation.name}}</span>
+                  <span v-text="sonInformation.age"></span>
+                  <span>{{sonInformation.sex}}</span>
+                </li>
+            </ul>
+           
+       </li>
+       
+    </ul>
+
+    <!-- v-show 条件渲染 根据条件来决定是否显示该模版内容 -->
+    <div v-show="isShow == 2">ddddd</div>
+    <!-- v-if 条件渲染 根据条件来决定是否显示该模版内容 -->
+    <!-- 
+        v-show 使用display来隐藏元素,虽然隐藏但是元素是被创建好的，依然会消耗dom性能，如果要显示改display=
+        v-if 直接从dom移除，隐藏就是没有改变元素，不会消耗性能，如果要显示必须重新创建
+     -->
+    <div v-if="isShow == 2">ddddd</div>
+    <input type="text" v-model="isShow">
+
+  <!-- 显示10次20 -->
+  <div v-for="aaa in 10" v-if='false'>20</div>
+  <!-- 显示100前10的索引 -->
+   <div v-for="(item,index) in 10" v-if='index<10'>{{index}}</div>
+
+   <!-- v-bind 绑定数据,给html属性绑定值 -->
+   <div v-bind:style="'background:'+ background">我的天啊</div>
+   <input type="text" v-model="background">
+    <!-- v-bind -->
+    <div v-bind:class="title='这是谁干的'">盒子</div>
+
+    <div v-bind:index="alpha"></div>
+
+    <!-- v-on指令：给元素绑定事件，不适原生html事件处理方式 -->
+    <button v-on:click="alpha=100">v-on</button>
+    <!-- 事件的处理方法
+    如果带了括号则不传递事件对象
+    如果不带括号则默认传递一个事件对象的参数 -->
+   <button v-on:click="click(100,$event)">v-On</button>
+
+   <div style="width:200px;height:200px" v-bind:class="mousemoved ? 'active' : 'noActive'" v-on:mousemove="mousemoved=true"></div>
+
+  
+
+<!-- 
+    v-if 条件渲染
+    v-else-if
+    v-else
+ -->
+<h1 v-if="text==1">如果text == 1,我就显示</h1>
+<h1 v-else-if="text == ''">如果text==空，我就显示</h1>
+<h1 v-else="text==1">如果text！==1，我就显示</h1>
+
+<!-- 显示html标签 -->
+<div v-text="text"></div>
+<!-- 不显示html标签 -->
+<div v-html="text"></div>
+<textarea cols="30" rows="10" v-model="text"></textarea>
+
+<!-- 
+    v-bind:class  如果包含对象，则对象的key是样式，对象value是样式的值
+    v-bind:style 如果包含对象，key是样式名称，对象value来决定样式是否要添加
+    class切换性能更高，缺点是要预设好
+    style优点不用预设，直接给值，缺点是性能差一些
+-->
+<div v-bind:style="[style1,style2]">我是bindStyle盒子</div>
+<div
+  v-bind:class="['mp',{
+      'active':true
+  }]"
+></div>
+
+</div>
+
+
+    <script>
+       const vm = new Vue({
+           el:'#app',
+          data:{//提供数据
+              title:'hello,world我的天啊',
+              text:'',
+              mousemoved:false,
+              isShow:undefined,
+              background:'red',
+              alpha:0,
+              classname:'active',
+              style1:{
+                   width:'150px',
+                   height:'150px',
+                   background:'green'
+              },
+              style2:{
+                 fontSize:'20px',
+                 color:'white',
+                 fontWeight:'bolder'
+              },
+              arr:[
+              {
+                  user:'闫硕',
+                  age:25,
+                  son:[
+                      {
+                      name:'小强',
+                      age:11,
+                      sex:'male'
+                      }
+              ]
+
+              },
+              {
+                  user:'李刚',
+                  age:33
+              },
+              {
+                  user:'王小平',
+                  age:18
+
+              }
+          ]
+
+          },
+          methods:{//提供逻辑方法处理
+            click(a,e){
+               
+                console.log(a,e);
+            },
+            //数组添加数据
+            add(name,age){
+                this.arr.push({
+                    user:name,
+                    age:age
+                });
+            },
+            //数组删除数据
+            deleteUser(i,index){
+                console.log(this == vm);//true
+                console.log(this.arr);
+                this.arr.splice(index,1);
+            }
+           
+          }
+       })
+    
+
+vm.arr.push({user:'张笑天',age:44});
+console.log(vm);
+
+
+
+
+
+    </script>
+</body>
+</html>
