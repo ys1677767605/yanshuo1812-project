@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="search">
+        <ul>
+            <li v-for="item in userlist">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                search: '',
+                users: [
+                    '王强',
+                    '李刚',
+                    '黄晓明',
+                    '闫硕',
+                    '闫果'
+
+                ]
+            },
+            computed: {
+                userlist() {
+                    return this.users.filter((value, index, users) => {
+
+                        //~-1 意思就是加1，结果是0，0的布尔值时false，!！~-1结果唯一是false
+                         return !!~value.indexOf(this.search);
+                      
+                         //第二种方法
+                        // if (value.indexOf(this.search) !== -1) {
+                        //     return value;
+                        // }
+                        // return value.indexOf(this.search);
+
+                    })
+
+
+
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

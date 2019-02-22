@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{selectAll}}
+        <input type="checkbox" v-model="selectAll">
+
+        <ul>
+            <li v-for="item in users">
+                <input type="checkbox" v-model="item.checked"> {{item.name}}
+            </li>
+        </ul>
+        <button v-on:click="deleteMany">批量删除</button>
+        <button v-on:click="reSelect">反选</button>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+
+                selectAll: false,
+                test: {
+                    checked: false,
+                },
+                users: [
+                    {
+                        name: '张凯',
+                        checked: false
+                    },
+                    {
+                        name: '吴田',
+                        checked: false
+                    },
+                    {
+                        name: '李东',
+                        checked: false
+                    },
+                ]
+            },
+
+            watch: {
+                selectAll(newValue, oldValue) {
+                    this.users.forEach((item) => {
+                        item.checked = newValue;
+
+                    })
+
+                }
+            },
+            methods: {
+                deleteMany() {
+                    this.users = this.users.filter((i) => { return !i.checked; })
+              
+               },
+               reSelect(){
+                   this.users.forEach((item) =>{
+                       item.checked = !item.checked;
+                   })
+               }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //对象解构
+        //对象解构赋值
+    const obj = {
+        name:'王亮',
+        age:22,
+        sex:'male'
+    }
+    //const {name,age,sex} = obj;
+    //必须按照对象的key名称来获取，不分先后顺序
+    
+    const {name,...most} = obj;
+    // console.log(name);
+    // console.log(more);//obj剩余部分
+
+    //在作为生成新的对象时，可以合并当前对象的成员到新的对象里
+    const a = {name:'李刚',...most};
+    console.log(a);
+
+const str = 'http://www.baidu.com:3000';
+const split = str.split(':');
+//...  在数组(对象)解构时，代表取剩下部分的
+const [protocol,...more] = split;
+//... 在生成新数组时，代表的是混入...数组里的所有成员到当前数组
+console.log(['https',...more]);
+        
+    </script>
+</body>
+</html>

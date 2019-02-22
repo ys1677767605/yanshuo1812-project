@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        Vue.component('Test',{
+            props:{
+              value:Number,
+              result:Number
+            },
+            template:`
+            <div class="test">
+            {{iValue}}
+              <input type="text" v-model.number="iValue"/>+100= {{computedResult}}
+            </div>
+             
+            `,
+            data(){
+                //父级参数不能直接用，必须声明一个变量接收
+                return {
+                    iValue:this.value,
+                    iResult:this.value + 100
+                }
+            },
+            watch:{
+                value(val){
+                    console.log('value:'+val);
+                    this.iValue = val;
+                    
+                },
+                result(val){
+                    console.log(val);
+                },
+                iValue(val){
+                //   this.$emit('input',val);
+                  console.log('iValue:'+val);
+                  this.iResult = this.iValue + 100;
+                }
+            },
+            computed:{
+                computedResult(){
+                    const data = this.value + 100;
+                    this.$emit('update:result',data);
+                    return data
+                }
+            }
+            
+           
+        })
+        new Vue({
+            el: '#app',
+            data: {
+             test:100,
+             result:0
+            }, 
+            methods: {
+             
+            },
+            //父级添加.sync可实现父子数据同级
+            template:`
+            <div>
+            
+            <Test v-model="test" :result.sync="result" />
+            父：<input type="text" v-model.number="test" />
+            {{result}}
+            </div>
+            `
+        })
+    </script>
+</body>
+
+</html>

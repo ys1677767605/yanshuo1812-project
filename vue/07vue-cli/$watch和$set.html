@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="run">按钮</button>
+        {{obj.name}}
+         {{obj.age}}
+         {{obj.sex}}
+    </div>
+    <script>
+
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    obj: {
+                        name: '闫硕',
+                        age: 29,
+                       
+                    }
+
+                }
+            },
+            watch:{
+                // obj:{
+                //     handler(val){
+                //       console.log('对象变化了');
+                //       console.log(val);
+                //     },
+                //     deep:true
+                // }
+              
+            },
+
+            methods: {
+                run() {
+                   
+                    //在vue创建组件时，data选项里的所有数据都会被处理成响应式数据
+                    //如果是后增加进去的，就不再是响应式数据 
+                    
+                    //$watch必须放在$set前面，才能监听到变化
+                    this.$watch('obj.name',function(val){
+                         console.log(val);
+                    })
+
+                    //使用this.$set可以获得响应式数据
+                    this.$set(this.obj,'name','闫果');
+                    //this.$set(this.obj,'sex','男');
+
+                    //this.__proto__.$delete(this.obj,'name');
+                   //this.$delete(this.obj,'name');
+                   //Vue.$delete(this.obj,'name');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

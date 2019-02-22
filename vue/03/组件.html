@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .lis {
+            width: 100px;
+            height: 50px;
+            color: #ebeaea;
+            background: #918585;
+            border-bottom: 1px solid #ccc;
+        }
+
+        li.active {
+            background: #a74e4e;
+        }
+
+        .cssRadius{
+            width:100px;
+            height:40px;
+            color:#ccc;
+            font-weight:bolder;
+            border-radius: 15px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<div id="app">
+        <Page :num="6" a="000" col="red" select-index="0"></Page>
+        <Btn color="red" radius @ccc="handle()">我是插槽slot</Btn>
+<!-- 组件嵌套：如果想要的组件具有嵌套功能，必须在组件中定义一个插槽<slot></slot>告诉vue内容分到哪 -->
+    </div>
+
+<body>
+
+    <script>
+        //全局组件
+        Vue.component('Page', {
+            //props接收 
+            // props: ['num', 'a', 'selectIndex'],
+            //prop验证
+
+            props: {
+                //必传参数，否则报错
+                num: {
+                    type: Number,                  
+                    required: true
+                },
+                //可选参数
+                a: {
+                    type:String,
+                    default:'我是默认值'
+                },
+                selectIndex: String
+            },
+            template: `<div>
+           {{selectIndex}}
+           
+            <ul>
+            <li v-for="(item,index) in num" class="lis" :class="{active:selectIndex == index}">{{index}}</li>
+            <h1>标题{{a}}</h1>
+            </ul>
+           
+            </div>
+            `//组件的模版选项
+        }),
+
+        Vue.component('Btn',{
+            props:{
+                color:{
+                //    type:String,
+                //    default:'#ccc'//设置该prop的默认值
+                //自定义  只允许传两种颜色参数，否则报错
+                validator(value){
+                  return /(red|green)/.test(value);
+                }
+                },
+                // radius:{
+                //     布尔值类型默认是false
+                //     type:Boolean,
+                //     default:true
+                // }
+                radius:Boolean
+            },
+            methods:{
+                handle(){
+                    //这个方法是把事件转发到组件事件触发里面去
+                    //点击事件名称ccc可以自定义
+                    this.$emit('ccc');
+                }
+            },
+            data(){//组件的data选项必须是一个函数返回一个对象
+                return {
+                    name:'我是按钮'
+                }
+            },
+            template:`
+            <button :style="{backgroundColor:color}" :class="{cssRadius:radius}" @click="handle"><slot></slot></button>
+            `
+
+        })
+
+
+
+        new Vue({
+            el: '#app',
+            //(esc键字符串标符)
+
+            //  template: `  
+            //             <div id="app">
+            // <Page :num="6" a="000" col="red" select-index="0"/>
+            // <Btn color="red" radius @click="handle()"/>
+            //     </div>
+
+            //             `,
+            data: {
+
+            },
+            methods: {
+               handle(){
+                   alert(1);
+               }
+            }
+        })
+    </script>
+</body>
+
+</html>

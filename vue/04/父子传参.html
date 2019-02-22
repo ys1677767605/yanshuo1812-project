@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        //子元素不能改变父元素传过来的数据，但可以改变对象内的东西
+        //原理：父子元素都同时指向同一堆内数据，所以子变父也变
+
+        //子元素
+        Vue.component('Son', {
+            props: {
+                 title:String,
+                obj: Object
+            },
+            
+           //父组件传递的数据不要直接使用，而是赋值到组件自己的data里面，才能实现son变父亲不变
+            data(){
+              return{
+                  sonObj:this.obj
+              }
+            },
+            template: `
+            
+            <div @click="sonClick()">儿子{{sonObj}}
+            {{title}}
+            </div>
+
+            `,
+            methods: {
+                sonClick() {
+                    //响应式数据：obj.name有括号
+                    //响应式数据，子元素才能改变父元素
+                    console.log(this.sonObj);
+                    this.sonObj = {name:'闫果'};
+                    // 子传父只能通过事件来传递
+                    this.$emit('fatherandsonClick',this.sonObj);
+                }
+              
+            }
+        })
+
+        //父元素
+        new Vue({
+            el: '#app',
+            template: `
+            <div id="app">
+                    父亲{{user}}    
+                    <Son :obj="user" @fatherandsonClick="fatherClick" title="我是字符串"/>
+                    </br>
+
+                    <Son :obj = "JSON.parse(JSON.stringify(user))"/>
+                    这种方法可以实现儿子改变,父亲不会改变，但已经不是响应式数据,只有在data里才是响应式数据
+            </div>
+
+            `,
+            data: {
+                user: {
+                    name: '李山'
+                }
+            },
+            methods: {
+              fatherClick(e){
+                this.user = e;
+                console.log('父级'+this.user);
+              }
+            }
+        })
+    </script>
+</body>
+
+</html>

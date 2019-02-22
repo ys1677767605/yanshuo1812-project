@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+        html,
+        body {
+            background: #dddddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .app {
+            margin-left: 200px;
+            margin-top: 50px;
+
+        }
+
+        ul.ulFirst {
+            width: 600px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        li.liFirst {
+            width: 198px;
+            height: 30px;
+            line-height: 30px;
+
+            font-weight: bolder;
+            text-align: center;
+            list-style: none;
+            border-right: 2px solid #F5F5DC;
+
+
+
+        }
+
+        span {
+            display: block;
+            width: inherit;
+
+        }
+
+        span.notMouse {
+            background: #666666;
+            color: #FEFEFE
+        }
+
+        span.mousemoved {
+            background: rgb(107, 89, 65);
+            background: #FEFEFE;
+            color: #666666
+        }
+
+        div.select {
+            width: 600px;
+            height: 300px;
+        }
+
+        /* 乘法表 */
+
+        div.mulTable {
+            margin-top: 50px;
+        }
+
+        div.mulTable span {
+            display: inline-block;
+            width: 100px;
+
+
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 使用vue实现一个选项卡切换的功能
+      选项卡列表要用循环实现    v-for指令
+      使用vue循环一个99乘法表出来
+    -->
+    <div class="app">
+        <ul class="ulFirst">
+            <li v-for="(item,index) in list" class="liFirst">
+                <span v-on:mousemove="tab(index,$event)" v-on:mouseleave="out($event)" v-bind:class="classname1">{{item.tab}}</span>
+
+
+            </li>
+
+        </ul>
+        <div class="select" v-for="(item,index) in list" v-show="item.show" v-bind:style="'background:' + item.background">
+
+            <h1>{{item.title}}</h1>
+        </div>
+
+
+        <!-- 九九乘法表 -->
+        <div class="mulTable">
+            <div v-for="i in 9">
+                <span>1 × {{i}} = {{i}}</span>
+               
+                 <span v-for="j in i-1">
+                   {{j}}*{{i}}
+                    {{j+1}} × {{i}} = {{(j + 1) * i}}
+                </span>
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+    <script>
+
+
+        let obj = [
+            { "tab": "选项一", "show": true, "title": "hello,我是选项一", "background": "rgb(190, 162, 125)" },
+            { "tab": "选项二", "show": false, "title": "hello,我是选项二", "background": "rgb(139, 118, 90)" },
+            { "tab": "选项三", "show": false, "title": "hello,我是选项三", "background": "rgb(107, 89, 65)" }
+        ];
+
+        var vm = new Vue({
+            el: ".app",
+            data: {
+                list: obj,
+                classname1: 'notMouse',
+                classname2: 'mousemoved',
+                arr: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+
+            },
+            methods: {
+                out: function (e) {
+                    e.target.className = this.classname1;
+                },
+                tab: function (index, e) {
+                    e.target.className = this.classname2;
+
+                    for (var i = 0; i < this.list.length; i++) {
+                        this.list[i].show = false;
+
+                        if (i == index) {
+                            this.list[index].show = true;
+
+
+                        }
+                    }
+                }
+            }
+
+
+        })
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

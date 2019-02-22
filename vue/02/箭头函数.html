@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //网站   babel
+
+        // function fn(a,b){
+        //     return a+b;
+        // }
+        // fn(2,3);
+
+        const fn = (a, b) => {
+            return a + b;
+        }
+        fn(2, 3);
+        console.log(fn(2, 3));
+
+
+        //箭头函数可以解决this指针问题
+        function Test() {
+            this.name = '闫哥';
+            this.run = function () {
+                //里面再套一个函数，用到this，需要箭头函数
+                //箭头函数不是使用自身函数体内的this指针，
+                //使用的是父作用域的this指向，可以一层一层集成上级作用域的this指针
+                const aaa = () => {
+                    const bbb = () => {
+                        return this.name
+                    }
+                    return bbb();
+                }
+                return aaa();
+            }
+        }
+
+        var test = new Test();
+        //console.log(test.run());
+
+        this.name = '李刚父亲';
+        var obj = {
+            name: '李刚',
+            run: () => {
+                return this.name //访问的是上级的this111
+            },
+            go: function () {
+                setTimeout(() => {
+                    console.log(this.name);//李刚
+                }, 1000),
+                    setTimeout(function () {
+                        console.log(this.name);//李刚父亲
+                    }, 1000)
+            }
+
+
+        }
+        var ccc = obj.run();
+        var ggg = obj.go();
+        console.log(ccc);
+        console.log(ggg);
+
+
+
+    </script>
+</body>
+
+</html>

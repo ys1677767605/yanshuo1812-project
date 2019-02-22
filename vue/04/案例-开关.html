@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      .Switcher{
+          width: 44px;
+          height: 22px;
+          border-radius: 11px;
+          background:#ccc;
+          border: 1px solid #ccc;
+          transition: background linear .3s;
+      }
+      .Switcher.on{
+        background:#2d8cf0;
+          border: 1px solid #2d8cf0;
+      }
+      .Switcher .btn{
+          width: 22px;
+          height: 22px;
+          border-radius: 100%;
+          background: #fff;
+          transition: transform linear .3s;
+      }
+      .Switcher.on .btn{
+          transform:translateX(22px);
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+      
+    </div>
+    <script>
+        Vue.component('Switcher',{
+            props:{
+                //父级传过来的数据赋值给value,value变化，iValue是不会变的
+                // eg:var a = 1;b = a; a = 2;b=?
+               value:Boolean
+            },
+            //默认样式是Switcher,当iValue是true时，样式为on
+            template:`
+            <div @click="iValue = !iValue"
+            :class="['Switcher',{
+              on:iValue  
+             }]">
+                    <div class="btn"></div>
+            </div>
+            `,
+            data(){
+                return{
+                    //只在初始化组件时赋值了一次数据给iValue
+                    iValue:this.value
+                }
+            },
+            watch:{
+
+                value(val){
+                    //console.log('"父级传过来的value是：" '+val);
+                    //父级发生改变然后传递到组件内部
+                    this.iValue = val;
+                    
+                },
+                iValue(val){
+                    //组件内部发生变化后通知父级（子传父）
+                    this.$emit('updat',val);
+                this.$emit('input',val);
+                }
+                
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            
+            methods: {
+              update(val){
+                console.log(val);
+                this.value = val;
+              }
+            },
+            template:`
+            <div>
+            {{value}}
+           <Switcher :value="this.value" @updat="update"/>
+           <Switcher v-model="value"/>
+           <button @click="value=!value" >toggle</button>
+           </div>
+            `
+            ,
+            data:{
+                value:true
+            },
+            
+        })
+    </script>
+</body>
+
+</html>
