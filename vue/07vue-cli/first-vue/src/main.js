@@ -30,7 +30,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import Tests from './components/Tests.vue';
 
-//Vue.component('Tests',Tests);
+
 
 Vue.config.productionTip = false
 
@@ -134,29 +134,29 @@ Vue.directive('sync', {
 Vue.directive('listener', {
     bind(el, binding, vnode, oldVnode) {
         //console.log(binding);
-       
-         if(typeof binding.value !== 'function'){
+
+        if (typeof binding.value !== 'function') {
             //如果不是函数的话，抛出类型错误
             throw new TypeError(`Invalid key ${binding.expression}, is not a function.`)
         }
         //如果没有修饰符
-         //el.addEventListener(binding.arg,binding.value )
-        
-         //如果有修饰符
-         el.addEventListener(binding.arg,(event) => {
-             //阻止事件冒泡
-             if(binding.modifiers.stop){
-                 event.stopPropagation()
-             }
-             //阻止事件默认
-             if(binding.modifiers.prevent){
-                 console.log(11);
-                event.preventDefault();
-                
+        //el.addEventListener(binding.arg,binding.value )
+
+        //如果有修饰符
+        el.addEventListener(binding.arg, (event) => {
+            //阻止事件冒泡
+            if (binding.modifiers.stop) {
+                event.stopPropagation()
             }
-             binding.value(event)
-         })
-       
+            //阻止事件默认
+            if (binding.modifiers.prevent) {
+                console.log(11);
+                event.preventDefault();
+
+            }
+            binding.value(event)
+        })
+
 
 
     }
@@ -181,49 +181,108 @@ Vue.directive('listener', {
  * 局部过滤器：案例在App.vue
  */
 //curr = '$' 设置默认值
-Vue.filter('currency',(val,curr = '$')=>{
-    console.log("管道参数："+curr);
-  return curr + val
+Vue.filter('currency', (val, curr = '$') => {
+    console.log("管道参数：" + curr);
+    return curr + val
 })
 
 //过滤器：去掉数字
-Vue.filter('filterNum',(val)=>{
-    return val.replace(/[0-9]/g,'')
+Vue.filter('filterNum', (val) => {
+    return val.replace(/[0-9]/g, '')
 })
 //过滤器：转换大写
-Vue.filter('Uppercase',(val)=>{
+Vue.filter('Uppercase', (val) => {
     return val.toUpperCase();
 })
 //过滤器：转换小写
-Vue.filter('Lowercase',(val)=>{
+Vue.filter('Lowercase', (val) => {
     return val.toLowerCase();
 })
 //过滤器：转换大驼峰
-Vue.filter('CamelCase',(val)=>{
-    if(typeof val !== 'string') return;
-    const [first,...more] = val.split('');
-return [first.toUpperCase(),more.join('').toLowerCase()].join('')
-    
+Vue.filter('CamelCase', (val) => {
+    if (typeof val !== 'string') return;
+    const [first, ...more] = val.split('');
+    return [first.toUpperCase(), more.join('').toLowerCase()].join('')
+
 })
 
 
 
+//将Tests.vue转换成全局组件
+Vue.component('Tests', Tests);
 
-
+import aaa from '@/components/aaa.vue'
 
 new Vue({
     el: '#app',
-    components: { App },
+    //注册组件
+    components: { App, aaa },
     template: '<App />',
     beforeCreate() {
         console.log('实例的生命周期:beforecreate');
     },
     mounted() {
         console.log('实例的生命周期:mounted');
+    },
+    //render:h => h(App)  渲染函数另一种写法
+    
+    render(h) {
+        //return h(App)
+        
+        return h('aaa', {
+            //   class:{//不管是不是组件都可以传递
+            //       'banner':true
+            //   },
+            // class:'banner',
+            style: {//不管是不是组件都可以传递
+                background: 'yellow'
+            },
+            props: {//必须在渲染组件的时候传递
+                bbb: '我是bbb'
+            },
+            attrs: {//给标签设置自定义的属性
+                index: 'haha'
+            },
+            domProps: {//原生html属性，不是html属性就不会被渲染
+                id: 'app'
+            },
+            nativeOn: {//给组件添加原生事件
+                click(a) {
+                    console.log(11);
+                }
+
+            },
+            on: {//监听组件的事件(或者标签的原生事件)
+                select(a) {
+                    console.log(a);
+                }
+            }
+
+
+        }, [
+                h('button', { slot: 'before' }, 'before'),
+                h('button', { slot: 'after' }, 'after'),
+                h('input')//默认插槽
+            ])
     }
+    
+
 })
 
-
+/**
+ * 渲染函数：render(createElement)
+ * createElement(id,options,c)
+ * id参数：是必须存在的
+ * 1. 可以是全局组件名称（字符串）  
+ * 2. 组件对象(变量)
+ * 3. 标签(html标签)
+ * 
+ * options: 对象(可选)
+ * 
+ * c:给渲染出来的标签或组件增加子元素(1.字符串，2.可以是数组，必须使用
+ * createElement函数继续生成的标签或组件)(可选)
+ * 
+ */
 
 
 

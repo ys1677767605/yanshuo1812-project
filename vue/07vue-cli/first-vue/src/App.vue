@@ -1,6 +1,7 @@
 
 <template>
-<!-- //输入 vb 显示提示 -->
+
+ 
 <div>
 
  <button @click="$alert" >我是App标题</button>
@@ -8,7 +9,7 @@
 <br />
 
   <input v-sync.number="value" />
-  <!-- input事件没有默认事件 -->
+   input事件没有默认事件 
   <input v-model.number="value" v-listener:input.prevent="handler"/>
 
   <div v-listener:mouseover.stop="handler">盒子</div>
@@ -20,12 +21,16 @@
 <br/>
   过滤器1：{{value | currency('$')}}  <br/>
 过滤器(转换大写,去掉数字)：{{name | Uppercase | filterNum |CamelCase}}<br/>
-局部过滤器：{{user| lowercase}}
+局部过滤器：{{user| lowercase}} 
+ 
 
-</div>
+<!-- <card /> -->
+
+</div> 
   
 </template>
 <script>
+import card from './components/card.jsx';
 import Test from "./components/Tests.vue";
 import aaa from "./components/aaa.vue";
 //@ 代表src目录
@@ -33,9 +38,11 @@ import common from "@/mixins/common.js";
 //import {common} from './mixins/common.js';
 export default {
   mixins: [common],
+  //注册组件
   components: {
     Test,
-    aaa
+    aaa,
+    card
   },
   data() {
     return {
