@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+/*同步路由
 import Home from '@/pages/Home'
 import About from '@/pages/About'
 import notFound from '@/pages/NotFound'
@@ -11,6 +12,22 @@ import pictures from '@/pages/picture-forEach'
 import login from '@/pages/Login'
 import login2 from '@/pages/login2'
 import login3 from '@/pages/login3'
+*/
+
+/**
+ * 异步路由：用异步的方式请求路由；
+ * 优点：不会一次性全部加载完，当用户访问某个路由时，再去加载相应的组件；
+ */
+const Home = () => import('@/pages/Home')
+const About = () => import('@/pages/About')
+const notFound = () => import('@/pages/NotFound')
+const News = () => import('@/pages/News')
+const NewsDetail = () => import('@/pages/NewsDetail')
+const pictures = () => import('@/pages/picture-forEach')
+const login = () => import('@/pages/Login')
+const login2 = () => import('@/pages/login2')
+const login3 = () => import('@/pages/login3')
+
 Vue.use(VueRouter)
 
 //通过new Vue-router 实例化一个路由对象

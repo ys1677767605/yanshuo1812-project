@@ -27,8 +27,8 @@ import axios from 'axios';
         //下面方法可以简写成
         async login(){
             const data = await axios.post('http://localhost:8080/proxyapi/sys/login',this.form)
-           console.log('login页面请求');
-           console.log(data);
+           
+           console.log('login页面请求',data);
        }
        
        

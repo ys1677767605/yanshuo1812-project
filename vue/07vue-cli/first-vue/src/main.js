@@ -227,8 +227,7 @@ new Vue({
     //render:h => h(App)  渲染函数另一种写法
     
     render(h) {
-        //return h(App)
-        
+        //return h(App)     
         return h('aaa', {
             //   class:{//不管是不是组件都可以传递
             //       'banner':true

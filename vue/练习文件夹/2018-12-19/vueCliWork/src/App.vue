@@ -35,8 +35,9 @@
 <ul>
   <li v-for="(navs,index) in this.nav2" :key="navs" class="newsTitle">
   
-    <router-link :to="aaa[index]" @click.prevent="click(index,e)">{{navs}}</router-link> 
-  </li>      
+    <router-link :to="aaa[index]">{{navs}}</router-link> 
+  </li> 
+     <li @click="subClick" ref="submit" >登录</li>  
  </ul>             
      <router-view class="routerView" > </router-view>
 </div>
@@ -55,7 +56,7 @@ export default {
     return {
       nav: ["指南", "组件", "资源"],
       nav2: ["设计原则", "导航"],    
-      aaa: ["/", "/news"]
+      aaa: ["/","/news"]
     };
   },
   methods: {
@@ -74,9 +75,10 @@ export default {
         ysIcon.style.transform = "";
       });
     },
-    click(i) {
-      const ref = this.$refs[i];
-      ref[0].style.color = "rgb(28, 103, 173)";
+    subClick(){
+      this.$refs.submit.style.color = "rgb(27, 122, 211)"
+      console.log(this.$router);
+      this.$router.push('/login')
     },
     mouseover(i) {
       console.log(i);
@@ -109,6 +111,9 @@ body {
 }
 .head {
   display: flex;
+  margin: 10px 0 40px 0;
+  height: 70px;
+ 
   justify-content: space-start;
 }
  .head .favicon {
@@ -123,13 +128,17 @@ body {
 ul {
   list-style: none;
 }
-.head .nav {
+.head ul.nav {
   font-weight: bold;
   color: rgb(110, 107, 110);
   height: inherit;
+  line-height:70px;
+  
   margin-left: 250px;
   display: flex;
   justify-content: flex-start;
+  align-content: center;
+  font-size: 20px;
 }
 .head .nav li {
   margin: 0 20px;
@@ -158,9 +167,10 @@ ul {
   margin: 10px 0;
 
 }
-.main .routerView {
-  /* width:75%; */
+.main ul li{
+color: grey;
 }
+
 a {
   color: grey;
   text-decoration: none;

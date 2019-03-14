@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 
-//1.导入路由
+//1.导入路由  yarn add vue-router -S
 import router from './router'
 //路由前置守卫   相当于小区门口保安询问进入车辆
 //一般应用于权限登录
@@ -12,9 +12,9 @@ router.beforeEach((to,from,next)=>{
  //console.log(to,from)
 //是否需要验证登录
 if(to.meta.auth_login){
-  //验证登录
+  //假如想去/pictureForEach页面，先验证是否登录
   //假如有此用户，放行
-  //localStorage.setItem('yanshuo') 注册用户(可在浏览器后台注册)
+  //localStorage.setItem('yanshuo','111111') 注册用户(可在浏览器后台注册)
   if(localStorage.getItem('yanshuo')){
     next()
   }else{
@@ -23,16 +23,15 @@ if(to.meta.auth_login){
     next('/login')
 
   }
-}else{
+}else{//去别的页面，放行
   next()
 }
  
  
 })
 
-import myPlugin from './myPlugin'
-
 //自做插件库
+import myPlugin from './myPlugin'
 Vue.use(myPlugin,{a:'aaa'})
 /*
 //Vue插件库原理

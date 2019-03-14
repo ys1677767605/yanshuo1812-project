@@ -88,6 +88,7 @@ export default {
 };
 </script>
 // 引入less文件，需要给style标签添加 lang="less"
+// scoped 只在当前组件生效的样式
 <style scoped>
 h1 {
   background: rgb(123, 172, 159);

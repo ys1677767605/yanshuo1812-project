@@ -2,10 +2,7 @@
     <div class="news">
       <ul>
           <li v-for="item in this.list" :key="item.id">
-
-              <router-link :to="'/news/'+item.id"> {{item.context}}</router-link>
-            
-              
+              <router-link :to="'/news/'+item.id"> {{item.context}}</router-link>             
           </li>
       </ul>
       <div>
@@ -53,7 +50,5 @@
 .news ul{
 width:100px;
 }
-.news newsDetail{
 
-}
 </style>
