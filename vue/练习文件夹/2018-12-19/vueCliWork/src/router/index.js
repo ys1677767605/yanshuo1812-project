@@ -22,8 +22,7 @@ export default new VueRouter({
            path:'/news',
            component:news,
            children:[
-               {
-                  // path:'@pages/'+':id'+'.html',
+               {          
                  path:':id',
                 component:Newsdetail
                }

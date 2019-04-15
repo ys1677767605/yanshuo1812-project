@@ -113,7 +113,13 @@ export default {
                   value: params.row.status,
                   size: "large",
                   "true-value": 1,
-                 "false-value": 0
+                 "false-value": 0,
+
+                },
+                nativeOn:{
+                  click(){
+                    console.log(params.row.status)
+                  }
                 }
               },
               [
@@ -241,8 +247,7 @@ export default {
     }
   },
   methods: {
-    deleteMany(){
-       
+    deleteMany(){       
         const deleteList = this.selectList.map((item) =>item.userId)
          console.log(deleteList)
         if(deleteList.length === 0){

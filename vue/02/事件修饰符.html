@@ -36,9 +36,15 @@
 <!-- .once添加一次事件 -->
 <button @click.once="click('我是一次事件')">按钮once</button>
         </div>
-
+<!-- .native -->
+<!-- 一般适用于组件事件；原生标签事件添加.native不能触发事件
+eg:<myComponents @click.native="alert(1)"/>
+不能适用于<div @click="console.log(1)">盒子</div>
+-->
         <!-- .prevent 阻止默认事件 -->
 <input type="text" value="请输入内容" @keydown.prevent="input">
+<!-- 单击按钮，阻止刷新页面 -->
+<button @click.prevent="click">添加博客</button>
 
 <!-- .passive修饰符提高移动端的性能，滚动的时候用 -->
 <!-- <div @scroll.passive="onScroll">...</div> -->

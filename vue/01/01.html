@@ -95,9 +95,9 @@
 <h1 v-else="text==1">如果text！==1，我就显示</h1>
 
 <!-- 显示html标签 -->
-<div v-text="text"></div>
+<div v-text="text">v-text显示html标签</div>
 <!-- 不显示html标签 -->
-<div v-html="text"></div>
+<div v-html="text">v-html不显示html标签</div>
 <textarea cols="30" rows="10" v-model="text"></textarea>
 
 <!-- 

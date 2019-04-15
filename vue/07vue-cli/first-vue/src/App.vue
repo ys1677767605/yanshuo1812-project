@@ -1,22 +1,16 @@
 
 <template>
-
- 
 <div>
-
  <button @click="$alert" >我是App标题</button>
  获取焦点指令： <input v-focus />
 <br />
-
   <input v-sync.number="value" />
    input事件没有默认事件 
   <input v-model.number="value" v-listener:input.prevent="handler"/>
-
-  <div v-listener:mouseover.stop="handler">盒子</div>
+  <div v-listener:click.stop="handler">盒子</div>
  <Test />
  <aaa/>
   <button v-test:click="aaa">局部指令</button>
-
 <br/>
 <br/>
   过滤器1：{{value | currency('$')}}  <br/>

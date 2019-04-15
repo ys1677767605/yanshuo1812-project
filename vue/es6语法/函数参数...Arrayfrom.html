@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            //函数默认参数  已经定义，不能再用let声明
+            {
+                function test(a, b = "hha") {
+                    //   console.log(b)
+                }
+                test('呵呵', null)
+            }
+            {
+                function test({a='默认1',b='默认2'}={}){
+
+                }
+                test()
+            }
+            {
+                function test({ a, b = "哈哈" }) {
+                    // console.log(b)  //哈哈
+                }
+                test({ a: 1 })
+            }
+
+            {
+                //       function test(a='默认'){
+                //        let a = 10;
+                //     //    console.log(a)  //报错
+                //       }
+                //       test()
+            }
+
+
+            //扩展运算符 剩余运算符 ...
+            {// Array.from() 拷贝数组 
+                let arr = [2, 4, 5, 6, 6]
+                let arr1 = [...arr];
+                //也可以 let arr1 = Array.from(arr)
+                arr.push(999)
+                //console.log(arr1)
+            }
+            //Array.from() 
+            //作用 把类数组（获取一组元素，arguments)对象转换成数组，具备length就管用
+            {//Array.from() 将字符串转换成数组
+                let str = 'a-b-c'
+                let arr = Array.from(str)
+                // console.log(arr) //["a", "-", "b", "-", "c"]
+
+            }
+            {
+                let obj = {
+                    0: '雄安',
+                    1: 88,
+                    2: 'male',
+                    length: 3
+                }
+                let arr = Array.from(obj)
+                console.log('arr', arr)
+            }
+            {
+                let arr = [3, 4, 5, 6, 7, 777]
+                let [a, ...more] = [...arr]
+                // console.log(more)//[4,5,6,7,777]
+            }
+
+            { //将数组元素分解
+                let arr = ['apple', 'banna', 'orange'];
+                //  console.log(...arr) //apple banan orange
+            }
+
+            {
+                function test(a, ...arr) {
+                    //   console.log(arr)  //[3,4,5]
+                }
+                test(2, 3, 4, 5)
+            };
+
+            {
+                function test(...arr) {
+                    //   console.log(arr)  //[2,3,4,5]
+                }
+                test(2, 3, 4, 5)
+            }
+
+            {//排序
+                function test(...arr) {
+                    return arr.sort()
+
+                }
+                const aaa = test(2, -4, 9, 3, 4, 5)
+                //    console.log(aaa)
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }    
+    </script>
+</body>
+
+</html>

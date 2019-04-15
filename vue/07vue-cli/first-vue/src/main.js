@@ -1,37 +1,27 @@
 //es6模块语法
 //基于ecmascript的模块语法，nodejs现在是测试阶段还不能运行
-
 // const test = require('./test')  //nodejs的方式
-
 //import test from './test'  //es6的导入方式
+
 //按需导入
 //import {arr} from './test'
-
 //import test ,{bb,test as xx} from './test'
 //如果有重名，可在括号内使用as给有冲突的变量添加别名
 //console.log(xx);
-
 //import {sum} from './test';
 //console.log(sum(2,2));
-
 //导入模块里的所有导出的东西  默认导出和按需导出
 //import * as ccc from './test'
-
 //console.log(ccc.format(new Date()));
 // console.log(ccc);
 //如果test和format文件里有变量重名的
 //ccc.formatRun();
 //ccc.run();
 import './assets/index.css';
-
 import Vue from 'vue';
 //单文件组件：.vue的文件
-
 import App from './App.vue';
 import Tests from './components/Tests.vue';
-
-
-
 Vue.config.productionTip = false
 
 //全局混入
@@ -45,26 +35,23 @@ Vue.mixin({
         return {
             prefix: 'yanshuo_'
         }
-
     },
     methods: {//给所有组件混入方法
         // $alert(){
         //     alert(1);
         // },
-
-
     },
     beforeCreate() {
-        console.log('混入的生命周期:beforecreate');
+        //   console.log('混入的生命周期:beforecreate');
     },
     mounted() {
-        console.log('混入的生命周期:mounted');
+        //   console.log('混入的生命周期:mounted');
     }
     // mounted(){
     //     console.log(this.$el);
     // }
 })
-
+//自定义指令
 Vue.directive('focus', {
     bind(el, binding, vnode, oldVnode) {
         /*el:指令绑定的元素本身
@@ -72,20 +59,18 @@ Vue.directive('focus', {
         *   1.expression:原始的表达式（指令引号中的东西）v-sync="value=100"
         *   2.name 指令的名称 不带-v的
         *   3.rawName 指令的名称 带-v的
-        *   4.value 表达式计算出来的值
+        *   4.value 表达式计算出来的值，oldValue 指令绑定的前一个值，仅在update和componentUpdated钩子中可用，无论值是否改变都可以使用
         *   5.modifiers 当指令上出现修饰符时就会有该选项
         *   6.arg 在指令后加上冒号的数据，也就是参数
         * vnode:组件上下文
-        * 
         * vnode:虚拟dom,是vue虚拟出来的dom结构，和dom的结果类似，但它不是一个dom对象
-        * 
+        * oldVnode:上一个虚拟节点，仅在update和componentUpdated钩子中可用
         */
         //当指令和组件或标签绑定的时候触发
         //bind只运行一次，在指令和元素绑定的是运行
-        console.log(el);
+        // console.log(el);
         el.style.background = "#ddd"
     },
-
     inserted(el, binding, vnode, oldVnode) {
         //当指令所绑定的组件或标签被插入到dom的时候触发，只运行一次
         el.focus();
@@ -100,19 +85,17 @@ Vue.directive('focus', {
         //当指令和组件解绑时触发
     }
 })
-
+//利用自定义指令实现v-model功能双向绑定
 Vue.directive('sync', {
     bind(el, binding, vnode, oldVnode) {
-
         el.value = binding.value;
     },
     inserted(el, binding, vnode, oldVnode) {
         el.value = binding.value;
         //监听input事件
         el.addEventListener('input', () => {
-            console.log(vnode.context);
+            //  console.log(vnode.context);
             //vnode.context.value = el.value;
-
             //binding.expression是对象，可以用下标形式
             if (binding.modifiers.number) {
                 //这样可以任意改变value名称 为iValue或其他           输入0-9以外的数，替换为空
@@ -120,12 +103,10 @@ Vue.directive('sync', {
             } else {
                 vnode.context[binding.expression] = el.value;
             }
-
-
         })
     },
     update(el, binding, vnode, oldVnode) {
-        console.log(binding);
+        //  console.log(binding);
         el.value = binding.value;
     },
 
@@ -141,7 +122,6 @@ Vue.directive('listener', {
         }
         //如果没有修饰符
         //el.addEventListener(binding.arg,binding.value )
-
         //如果有修饰符
         el.addEventListener(binding.arg, (event) => {
             //阻止事件冒泡
@@ -150,15 +130,11 @@ Vue.directive('listener', {
             }
             //阻止事件默认
             if (binding.modifiers.prevent) {
-                console.log(11);
+                // console.log(11);
                 event.preventDefault();
-
             }
             binding.value(event)
         })
-
-
-
     }
 })
 
@@ -205,18 +181,15 @@ Vue.filter('CamelCase', (val) => {
     return [first.toUpperCase(), more.join('').toLowerCase()].join('')
 
 })
-
-
-
 //将Tests.vue转换成全局组件
 Vue.component('Tests', Tests);
-
 import aaa from '@/components/aaa.vue'
 
 new Vue({
     el: '#app',
     //注册组件
     components: { App, aaa },
+    components: { App },
     template: '<App />',
     beforeCreate() {
         console.log('实例的生命周期:beforecreate');
@@ -225,7 +198,7 @@ new Vue({
         console.log('实例的生命周期:mounted');
     },
     //render:h => h(App)  渲染函数另一种写法
-    
+
     render(h) {
         //return h(App)     
         return h('aaa', {
@@ -258,13 +231,15 @@ new Vue({
             }
 
 
-        }, [
+        }, // h('Button',{props:{type:'primary'}},'修改'),
+            // h('Button',{props:{type:'error'}},'删除'),
+            [
                 h('button', { slot: 'before' }, 'before'),
                 h('button', { slot: 'after' }, 'after'),
                 h('input')//默认插槽
             ])
     }
-    
+
 
 })
 

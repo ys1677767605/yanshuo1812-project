@@ -84,10 +84,8 @@ export default {
             this.form.uuid = uuid();
         },
         async login(){
-            //验证表单数据是否为空
-           
+            //验证表单数据是否为空          
             const valid = this.$refs['form'].validate();
-
             if(valid){
               this.loading = true;
               const result = await http.post('/sys/login',this.form)

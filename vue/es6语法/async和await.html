@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 关于异步解决方案
+         * 1）回调函数
+         * 2）事件监听
+         * 3）发布/订阅
+         * 4）Promise对象
+        */
+
+        /**
+         * async function fn(){    //表示异步，这个函数里面有异步任务
+         * let result = await xxx  //表示后面结果需要等待
+         * }
+         * 1）await后面可以是promise对象，也可以是数字，字符串，Boolean值
+         * 2）async函数返回时一个promise对象
+         * 3）只要await语句后面Promise状态变成reject，那么整个async函数会中断执行
+         * 
+         */
+        //建议：如何解决async函数中抛出错误，影响后续代码
+        /**
+         * 任何出现await的地方，建议使用try{
+         * await ......
+         * }catch(){}
+        */
+        {
+ 
+            async function test() {
+                await new Promise(function (resolve, reject) {
+                    setTimeout(function () {
+                        resolve()  //相当于then里面的方法
+                    }, 200)
+                }).then(
+                    console.log('定时器')
+                )
+                console.log(888)
+            }
+           // test()
+        }
+
+        {
+            let p1 = new Promise(function(resolve,reject){              
+                setTimeout(function(){
+                    resolve('哈哈哈哈哈哈')                  
+                },500)                
+            }).then((res) =>{
+            //    console.log('then'+res) //res就是resolve()里面的数据
+             return 'then'+res 
+            })                       
+            async function test(){              
+               let aaa = await p1;
+               console.log(aaa)
+               console.log('pppp')
+            }
+            test()     
+            
+        }
+
+
+
+    </script>
+</body>
+
+</html>

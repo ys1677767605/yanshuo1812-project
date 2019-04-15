@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            {//对象简洁语法
+                let name = '小刚';
+                let age = 44
+                let obj = {
+                    name, //name:name
+                    age,  //age:age
+                    // showA: function () {
+                    //     return this.name
+                    // },
+                    showA() {//不能用箭头函数
+                        return this.name
+                    },
+                    showB() {//不能用箭头函数
+                        return this.age
+                    }
+                }
+
+
+
+            }
+            {//Object.is(A值，B值) 用来比较两个值是否相等
+               //  console.log(NaN === NaN)//false           
+               // console.log(Object.is(NaN,NaN))//true
+               // console.log(Object.is(+0,-0))//false
+            }
+            {//Object.assign() 复制对象/数组 合并参数
+              let json = {a:1}
+              let json1 = {b:2,a:222}
+              let json2 = {c:3}
+              let contactObj = Object.assign({},json,json1,json2)
+             // console.log(contactObj)//{a:222, b: 2, c: 3}
+
+            }
+            {//Object.assign() 合并数组 
+              let arr = ['aa','bb','cc']
+              let arr1 = Object.assign([],arr)
+              //let arr2 = [...arr]
+              arr1.push('dd')
+              //console.log(arr2)
+             // console.log(arr1)
+            }
+            //Object.keys()
+            //Object.entries()
+            //Object.values()
+            {
+                let obj = {
+                    name:'xiaow',
+                    age:23,
+                    sex:'male'
+                }
+                for(let i of Object.keys(obj)){
+                //    console.log(i)//name age sex
+                }
+                for(let i of Object.entries(obj)){
+                  //  console.log(i)
+                    /*
+                    (2) ["name", "xiaow"]
+                    (2) ["age", 23]
+                    (2) ["sex", "male"]
+                    */
+                }
+                for(let i of Object.values(obj)){
+                //    console.log(i)//xiao 23 male
+                }
+            }
+            {
+                let obj = {
+                    name:'xiaow',
+                    age:23,
+                    sex:'male'
+                }
+                let {name,...more} = obj
+                console.log(more)
+            }
+
+
+
+
+
+
+
+
+
+        }
+
+    </script>
+</body>
+
+</html>

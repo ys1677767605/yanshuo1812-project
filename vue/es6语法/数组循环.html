@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            {//arr功能
+                // arr.forEach/map 代替普通for循环
+                //平时只要用map,一定要用return
+                //arr.filter()  过滤
+                //arr.some() 类似查找，数组里面某一个元素符合条件，返回true
+                //arr.every()  数组里面所有的元素都要符合条件，才返回true
+                //以上方法可以接收两个参数
+                //arr.reduce()  从左往右，求数组的和,阶乘
+                //arr.reduceRight从右往左
+                //2017新增一个运算符 幂 Math.pow(2,4) 2**3
+            }
+            {//arr.forEach()
+                let obj = { a: 1, b: 2 }
+                let arr = ['apple', 'ggg', 'eee', 'ttttt']
+                arr.forEach(function (el) {
+                    //   console.log(this) //111111
+                }, 111111);
+
+            }
+            {//arr.map()  非常有用  一般配合return,返回值
+                //如果没有return,功能相当于forEach
+                let arr = ['apple', 'ggg', 'eee', 'ttttt']
+                let arr1 = arr.map(function (el, index, arr) {
+                    return index
+                    //   return 1    结果[1,1,1,1]
+                })
+                // console.log(arr1)  // [0, 1, 2, 3] 
+                let arr2 = arr.forEach(function (el, index, arr) {
+                    return index
+                })
+                // console.log(arr2)//undefined
+            }
+            {//arr.map()  实际开发案例  将arr元素的name改成t
+                let arr = [
+                    { name: '小李', age: 14 },
+                    { name: '小刚', age: 15 },
+                    { name: '小王', age: 14 },
+                    { name: '小超', age: 15 },
+                ]
+                let arrMap = arr.map((el, index, arr) => {
+                    let json = {}
+                    json.t = el.name
+                    json.age = el.age
+                    return json
+                })
+                console.log(arrMap)
+
+            }
+            {//arr.filter
+                let arr = [
+                    { name: '小李', age: true },
+                    { name: '小刚', age: false },
+                    { name: '小王', age: true },
+                    { name: '小超', age: false },
+                ]
+                let arr1 = arr.filter((el) => {
+                    return el.age
+                })
+                //  console.log(arr1)
+            }
+            {//arr.some
+                let arr = [
+                    { name: '小李', age: true },
+                    { name: '小刚', age: false },
+                    { name: '小王', age: true },
+                    { name: '小超', age: false },
+                ]
+                let arr1 = arr.some((el, index, arr) => {
+                    return el.name == '小刚'
+                })
+                //console.log(arr1)
+            }
+            {//arr.every
+                let arr = [
+                    { name: '小李', age: 22 },
+                    { name: '小刚', age: 25 },
+                    { name: '小王', age: 26 },
+                    { name: '小超', age: 22 },
+                ]
+                let arr1 = arr.every((el, index, arr) => {
+                    return el.age > 20
+                })
+                // console.log(arr1)
+            }
+            {//arr.reduce
+                //acc就是数组中的第0项元素（初始化）
+                //current从第一项元素到最后的所有元素
+                //return将acc+current的结果重新赋予sum，并且继续轮寻计算
+                //最后返回到结果返回给变量
+                let arr = [1, 2, 3, 4]
+                let sum = arr.reduce((acc, current) => {
+                    return acc + current
+                })
+                console.log(sum)//10
+            }
+            {//arr.reduce
+             //如果我们给了初始值100，acc就是100，current就不在从第一项开始了，而是从第0项开始
+                let arr = [1, 2, 3, 4]
+                let sum = arr.reduce((acc, current) => {
+                    return acc + current
+                },100)
+                console.log(sum)//115
+
+            }
+
+            {//for...of循环   arr.keys() arr.entries()
+                let arr = ['哈哈', 'Hehe', '啊啊']
+                //遍历索引
+                for (let val of arr.keys()) {
+                    //  console.log(val)
+                }
+                //遍历值
+                for (let val of arr) {
+                    //   console.log(val)
+                }
+                //遍历索引值
+                for (let val of arr.entries()) {
+                    // console.log(typeof val)                  
+                    // console.log(val)
+                }
+
+
+            }
+            {//arr.find() 找到第一个符合条件的元su
+                //没找到返回undefined
+                let arr = [5, 67, 23, 11, 100, 345]
+                let num = arr.find(el => {
+                    return el > 60
+                })
+                // console.log(num)
+            }
+            {//arr.findIndex() 找到第一个符合条件的元su,返回索引
+                //没找到返回-1
+                let arr = [5, 67, 23, 11, 100, 345]
+                let num = arr.findIndex(el => {
+                    return el > 100
+                })
+                // console.log(num)//5
+            }
+
+            {//arr.includes() 包含
+                let arr = ['aa', 'bb', 'cc']
+                let bb = arr.includes('bb')
+                // console.log(bb)
+            }
+            {
+
+            }
+
+
+
+
+
+        }    
+    </script>
+</body>
+
+</html>

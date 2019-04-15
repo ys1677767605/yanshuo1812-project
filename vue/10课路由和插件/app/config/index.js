@@ -19,10 +19,10 @@ module.exports = {
         //当访问localhost:8080的时候，会代理到http://console.ranyunlong.com:8080
         target: "http://console.ranyunlong.com:8080",
         pathRewrite:{
-          //端口号后面的路径替换成renren-fast
-          //访问 http://localhost:8080/proxyapi ，
-          //替换成 http://console.ranyunlong.com:8080/renren-fast 结果交给上面地址
-           '^/proxyapi':'/renren-fast'
+          //端口号后面的路径将renren-fast替换成proxyapi 
+          //访问 http://console.ranyunlong.com:8080/renren-fast 结果交给上面地址
+          //替换成 http://localhost:8080/proxyapi ，
+          '^/proxyapi':'/renren-fast'
         }
         
       }

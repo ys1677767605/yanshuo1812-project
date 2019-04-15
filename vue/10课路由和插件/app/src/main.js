@@ -7,32 +7,32 @@ import App from './App'
 import router from './router'
 //路由前置守卫   相当于小区门口保安询问进入车辆
 //一般应用于权限登录
-router.beforeEach((to,from,next)=>{
-/**to 到哪个路由去  from 从哪个路由来  next 要不要放行*/
- //console.log(to,from)
-//是否需要验证登录
-if(to.meta.auth_login){
-  //假如想去/pictureForEach页面，先验证是否登录
-  //假如有此用户，放行
-  //localStorage.setItem('yanshuo','111111') 注册用户(可在浏览器后台注册)
-  if(localStorage.getItem('yanshuo')){
-    next()
-  }else{
-    //跳转到登录界面
-    //router.push('/login') 
-    next('/login')
+router.beforeEach((to, from, next) => {
+  /**to 到哪个路由去  from 从哪个路由来  next 要不要放行*/
+  //console.log(to,from)
+  //是否需要验证登录
+  if (to.meta.auth_login) {
+    //假如想去/pictureForEach页面，先验证是否登录
+    //假如有此用户，放行
+    //localStorage.setItem('yanshuo','111111') 注册用户(可在浏览器后台注册)
+    if (localStorage.getItem('yanshuo')) {
+      next()
+    } else {
+      //跳转到登录界面
+      //router.push('/login') 
+      next('/login')
 
+    }
+  } else {//去别的页面，放行
+    next()
   }
-}else{//去别的页面，放行
-  next()
-}
- 
- 
+
+
 })
 
 //自做插件库
 import myPlugin from './myPlugin'
-Vue.use(myPlugin,{a:'aaa'})
+Vue.use(myPlugin, { a: 'aaa' })
 /*
 //Vue插件库原理
 //判断是不是数组方法：Array.isArray()
@@ -84,16 +84,16 @@ new Vue({
 
 
 //Promise构造函数 处理异步,解决嵌套
-const p = new Promise((resolve,reject) =>{
-  setTimeout(() =>{
-    resolve('p') //调用的是then里面的方法
-   reject()      //报告错误 调用的是catch里面的方法
-  },100)
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('成功') //调用的是then里面的方法
+    reject()      //报告错误 调用的是catch里面的方法
+  }, 100)
 })
 
 /*
 p.then(res =>{
-   console.log('aaa'+res);
+   console.log('aaa'+res);//res就是resolve()里面的数据
    
 })
 p.catch(err =>{
@@ -105,18 +105,18 @@ console.log(err);
   reject(b) = p.catch((b) =>{}) 
  */
 
- //es6语法 await 自动把p.then()里面的结果取出来，放到a里面去
- //await 解决异步和嵌套
- //必须写到async函数里面去，等待的意思，必须等异步执行完再执行（有顺序的异步）
- 
- async function test(){
-   //内部变成同步 解决Promise嵌套
-   const a = await p 
-   console.log(1);
-   console.log(a);
-   console.log(2);
- }
- console.log(4);
- test()
+//es6语法 await 自动把p.then()里面的结果取出来，放到a里面去
+//await 解决异步和嵌套
+//必须写到async函数里面去，等待的意思，必须等异步执行完再执行（有顺序的异步）
+
+async function test() {
+  //内部变成同步 解决Promise嵌套
+  const a = await p
+  console.log(1);
+  console.log(a);
+  console.log(2);
+}
+console.log(4);
+test()
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,74 +8,83 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
     <div id="app">
         {{getValue}}
-       <input type="text" v-model="value">
-       <input type="text" v-model="val">
+        <input type="text" v-model="value">
+        <input type="text" v-model="val">
     </div>
     <script>
-    var vm = new Vue({
-         el:'#app',
-         data:{
-            value:'',
-            title:'',
-            val:'',
-            obj:{},
-            obj1:{
-             name:'xx'
-            }
-         },
-         methods:{
-             //如果模版中想要访问方法，必须加上括号
-          //  getValue(){
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                value: '',
+                title: '',
+                val: '',
+                obj: {},
+                obj1: {
+                    name: 'xx',
+                    sex:'male'
+                }
+            },
+            methods: {
+                //如果模版中想要访问方法，必须加上括号
+                //  getValue(){
                 //当实例的属性有任意改变时(比如val发生变化)，函数都会触发运行
-            //   return this.title = '@' + this.value;
-           // }
-         },
+                //   return this.title = '@' + this.value;
+                // }
+            },
 
-         //watch 监听器
-         watch:{//这个选项用来监控当前实例中的成员发生变化
-         //监听方式 是给当前实例的成员添加一个同名函数在watch选项里
-         //就可以监听该成员的变化了
+            //watch 监听器
+            watch: {//这个选项用来监控当前实例中的成员发生变化
+                //监听方式 是给当前实例的成员添加一个同名函数在watch选项里
+                //就可以监听该成员的变化了
 
-         //普通变量同名函数就可以监听
-         value(newValue,oldValue){
-          // console.log(newValue,oldValue);
-          //只有输入数字触发该事件
-           if(/\d/g.test(newValue)){
-             // console.log(1);
-             //输入字母才会赋值value
-              this.value = newValue.replace(/\d/g,'');
-           }
-         },
-         
-         //对象或数组的监听，如果是只针对该对象从一个对象变成另一个新对象
-         obj(){
-            
-         },
-         //对象或数组的监听，要想监听它内部成员发生变化，需要deep检测
-         obj1:{
-           handler(val){
-               //处理变化
-               //只针对现有的对象成员进行监听
-               //如果是新增的成员，不监听
-               console.log(val);
-           },
-           deep:true
-         }
+                //普通变量同名函数就可以监听
+                value(newValue, oldValue) {
+                    // console.log(newValue,oldValue);
+                    //只有输入数字触发该事件
+                    if (/\d/g.test(newValue)) {
+                        // console.log(1);
+                        //输入字母才会赋值value
+                        this.value = newValue.replace(/\d/g, '');
+                    }
+                },
 
-         
-         },
-         computed:{//做计算的  里面的函数和methods比较，computed有缓存，而methods每次调用都会重新触发一次
-           getValue(){
-               //如果模版中想要访问方法，不用加上括号
-               //只要这里面引用的变量(title或value)发生改变，结果就会发生改变
-              console.log(1);
-              return this.title = '@' + this.value;
-           }
-         }
-    })
+                //对象或数组的监听，如果是只针对该对象从一个对象变成另一个新对象
+                obj() {
+
+                },
+                //对象或数组的监听，要想监听它内部成员发生变化，需要deep检测
+                obj1: {
+                    handler(val) {
+                        //处理变化
+                        //只针对现有的对象成员进行监听
+                        //如果是新增的成员，不监听
+                        console.log(val);
+                    },
+                    deep: true
+                }
+                /*
+                 //监听对象某个值
+                'obj1.name':{
+                handler(newVal){
+                    console.log('监听对象某个值',newVal)
+                }
+            }
+              */
+
+            },
+            computed: {//做计算的  里面的函数和methods比较，computed有缓存，而methods每次调用都会重新触发一次
+                getValue() {
+                    //如果模版中想要访问方法，不用加上括号
+                    //只要这里面引用的变量(title或value)发生改变，结果就会发生改变
+                    console.log(1);
+                    return this.title = '@' + this.value;
+                }
+            }
+        })
 // computed  data methods 不能有相同名称的成员，否则会被覆盖   
 
 
@@ -88,7 +98,7 @@ watch是不能直接监听data中数组或对象内部成员的，如果想要�
       ]
   },
   watch:{
-     arr(){
+     arr:{
          监听数组
          handler(val){
            console.log('数组本身变化了');
@@ -107,6 +117,7 @@ watch是不能直接监听data中数组或对象内部成员的，如果想要�
 
 
 
-</script>
+    </script>
 </body>
+
 </html>

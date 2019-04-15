@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+// 1.数组map,forEach方法
+       var arr = [{name:'小明'},{name:'王超'},{name:'赵刚'}];
+       const a = arr.map((value,index,arr) =>{
+        //    console.log(value)
+        //    console.log(index)
+        // console.log(arr)
+       })
+       console.log(a)//[undefined,undefined,undefined]
+       console.log('<br>')
+       const b = arr.forEach((value,index,arr) =>{
+        //    console.log(value) 
+        // console.log(index)
+        // console.log(arr)
+        
+       })
+       console.log(b)//undefined
+       
+//2.数组过滤
+     //eg1:
+     const num = 5;
+     const arrc = [3,4,5,6,7,8];
+     const arrd = arrc.filter(el=>{
+         return el>5
+     })
+     console.log(arrd)//[6,7,8]
+     //eg2:
+     const obj = {name:'王超',age:25}
+     const arre = ['li',3,'er','王超']
+     const name = arre.filter(el =>{return el=== obj.name})
+     console.log(name)//["王超"]
+//3. 查询与条件匹配的成员的索引
+      const matIndex = arre.findIndex((el) =>{
+            return el=== obj.name
+      })
+      console.log(matIndex)//3
+
+//4.
+const arrg = ['yanshuo',4,'闫',456,undefined]
+const [yan,...mores] = arrg
+console.log(yan)//yanshuo
+console.log(mores)// [4, "闫", 456, undefined]
+
+
+</script>

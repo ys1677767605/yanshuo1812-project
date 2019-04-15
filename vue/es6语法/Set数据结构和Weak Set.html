@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     /**
+      * set数据结构：类似数组，但是里面不能有重复值
+      * 
+      * */
+     {
+         let setArr = new Set(['aa','bb','cc','dd'])
+         console.log(setArr)//Set(4) {"aa", "bb", "cc", "dd"}
+         console.log(typeof setArr)//object
+         for(let i of setArr.values()){
+           // console.log(i)
+         }
+         console.log('---------')//        
+         let setArr1 = new Set();
+         console.log(setArr1)//Set(0){}
+         setArr1.add('aaa')//添加
+         setArr1.add('bbb')//添加         
+         setArr1.delete('bbb')//删除
+         setArr1.has('aaa')//检测是否存在此元素
+         console.log(setArr1.size)//查看个数
+         setArr1.clear()//清空
+         console.log('---------')//        
+                 
+     }   
+     {//数组去重
+        console.log('----------数组去重')
+        let arr = ['aa','bb','cc','dd','bb','cc','ff','455',45,23,'aa','bb']
+        //let setArr = new Set(arr)
+         let arr2 = [...new Set(arr)]      
+         console.log(arr2)
+     
+       
+
+     } 
+    </script>
+</body>
+</html>

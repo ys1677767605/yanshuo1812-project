@@ -1,31 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <h1 id="app"></h1>
     <script>
         var app = document.getElementById('app');
         let name = 100;
-       const user = {
-           get name(){//拦截name 变量的获取
-            console.log('正在获取变量');
-              return name
-           },
-           set name(val){
-               name = val;
-               app.innerText = val;
-               console.log('正在设置name变量',val)
-           }
-       }    
-      
+        const user = {
+            get name() {//拦截name 变量的获取
+                console.log('正在获取变量');
+                return name
+            },
+            set name(val) {
+                name = val;
+                app.innerText = val;
+                console.log('正在设置name变量', val)
+            }
+        }
+
+
+        console.log('-----')
+        /*深层拷贝
+        function deepClone(obj) {
+            function isObject(o) {
+                return (typeof o === 'object' || typeof o === 'function' && o !== null)
+            }
+            if (!isObject(obj)) {
+                throw new Error('非对象')
+            }
+            let isArray = Array.isArray(obj)
+            let newObj = isArray ? [...obj] : { ...obj }
+            Reflect.ownKeys(newObj).forEach(key => {
+                newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]
+            })
+            return newObj
+
+        }
+        let obj = {
+            a: [3, 4, 5],
+            b: {
+                name: 'xiaohogn',
+                age: 22
+            }
+        }
+        */
         
-        
-        
+       var str = new Boolean('abc')
+       console.log(String.prototype.__proto__)
     </script>
 </body>
+
 </html>

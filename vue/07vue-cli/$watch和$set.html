@@ -8,58 +8,67 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
-
 <body>
     <div id="app">
-        <button @click="run">按钮</button>
-        {{obj.name}}
-         {{obj.age}}
-         {{obj.sex}}
+        <button @click="run">改变对象</button>
+        {{obj.name}} {{obj.age}} {{obj.sex}}
+        <br>
+        <button @click="updateArr">改变数组</button>
+        {{arr}}
     </div>
     <script>
-
-
         new Vue({
             el: '#app',
             data() {
                 return {
+                    arr:[1,2,3,4,5],
                     obj: {
                         name: '闫硕',
                         age: 29,
-                       
                     }
-
                 }
             },
-            watch:{
-                // obj:{
-                //     handler(val){
-                //       console.log('对象变化了');
-                //       console.log(val);
-                //     },
-                //     deep:true
-                // }
-              
+            watch: {
+                obj:{
+                    handler(val){
+                      console.log('对象变化了');
+                      console.log(val);
+                    },
+                    deep:true
+                },
+                arr:{
+                    handler(val){
+                      console.log('数组变化了');
+                      console.log(val);//打印数组
+                    },
+                    deep:true
+                },
+                
             },
-
+            
             methods: {
+                //监听对象内部的值
                 run() {
-                   
                     //在vue创建组件时，data选项里的所有数据都会被处理成响应式数据
                     //如果是后增加进去的，就不再是响应式数据 
-                    
+
                     //$watch必须放在$set前面，才能监听到变化
-                    this.$watch('obj.name',function(val){
-                         console.log(val);
+                    this.$watch('obj.name', function (val) {
+                        console.log(val);
                     })
-
-                    //使用this.$set可以获得响应式数据
-                    this.$set(this.obj,'name','闫果');
+                    //使用this.$set可以修改，获得响应式数据 
+                    this.$set(this.obj, 'name', '闫果');
                     //this.$set(this.obj,'sex','男');
-
                     //this.__proto__.$delete(this.obj,'name');
-                   //this.$delete(this.obj,'name');
-                   //Vue.$delete(this.obj,'name');
+                    //this.$delete(this.obj,'name');
+                    //Vue.$delete(this.obj,'name');
+                },
+                 //监听数组内部的值
+                updateArr(){
+                    this.$watch('arr', function (val) {
+                        console.log('$watch'+val);
+                    })
+                    this.$set(this.arr,'2','数组第3个成员变了')
                 }
             }
         })

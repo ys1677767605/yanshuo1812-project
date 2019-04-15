@@ -23,9 +23,7 @@
     }
     /* 动画过渡之前的样式 */
     .scale-enter{
-       transform:scale(0,0) rotate(30deg);
-       
-        
+       transform:scale(0,0) rotate(30deg);        
     }
     /* 动画执行时的样式 */
     .scale-enter-active{
@@ -34,21 +32,16 @@
     }
      /* 动画过渡结束后的样式 */
     .scale-enter-to{
-        transform:scale(1,1) rotate(160deg);
-       
-       
+        transform:scale(1,1) rotate(160deg);      
     }
     .scale-leave{
-        transform:scale(1,1);
-       
+        transform:scale(1,1);       
     }
     .scale-leave-active{
-       transition:transform 2s linear;
-       
+       transition:transform 2s linear;      
     }
     .scale-leave-to{
-        transform:scale(0,0);
-       
+        transform:scale(0,0);       
     }
     @keyframes fadeIn{
         from{
@@ -95,8 +88,7 @@
         -->
        <transition-group 
          enter-active-class="fadeIn"
-         leave-active-class="fadeOut"
-         
+         leave-active-class="fadeOut"         
        >
           <div v-show="activeIndex === item" class="box" 
           v-if="show"
@@ -104,30 +96,20 @@
           :key="item"
           >
        {{typeof activeIndex}}
-        </div>
-       
+        </div>       
        </transition-group>
        <button @click="show = !show">toggle</button>
        <input type="number" v-model.number="activeIndex">
-
     </div>
-
 </body>
-
     <script>
-       
-
         new Vue({
             el: '#app',
-            data: {
-             
+            data: {             
               show:true,
               activeIndex:1
-            },
-            
-            methods: {
-
             }
+           
         })
     </script>
 

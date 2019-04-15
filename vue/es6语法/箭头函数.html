@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var id = 22;
+        window.onload = function () {
+            //es2017 函数参数最后可以有逗号了
+            {
+                function test(a,b,c,){
+                    // console.log(a,b,c)
+                }
+                test(1,2,3,)
+            }
+            //箭头函数简写  
+            //箭头函数不能当构造函数
+            {
+                /*
+                function test(){
+                    return 1
+                }
+                test()
+                简写成：
+                */
+                let test = () => 1
+                //console.log(test())
+            }
+            {
+                let test = (a = 12, b = 5) => {
+                    //   console.log(a + b)
+                }
+                test()
+            }
+
+            //箭头函数this指向父级
+            {
+
+                let obj = {
+                    id: 'id',
+                    foo: function () {
+                        //setTimeout this指向widow,
+                        // setTimeout(function(){
+                        //    console.log(this.id)  //22
+                        // },200)
+                        //箭头函数中 this指向父级
+                        setTimeout(() => {
+                            // console.log(this.id) //1
+                        })
+                    }
+                }
+                obj.foo()
+            }
+            //箭头函数里面没有arguments  用...
+            {
+                let arr1 = function () {
+                    //     console.log(arguments)  //[1,5,6]
+                }
+                arr1(1, 5, 6)
+
+                let arr = () => {
+                    //    console.log(arguments)//数组为空
+                }
+                arr(5, 6, 7, 8)
+            }
+
+            {
+                let arr = (...arg) => {
+                    // console.log(arg)
+                    console.log(arguments)//数组为空
+                }
+                arr(5, 6, 7, 8)
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }    
+    </script>
+</body>
+
+</html>
