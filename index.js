@@ -1,1 +1,0 @@
-var str = 'hello,我是master';
